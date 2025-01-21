@@ -1,0 +1,533 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.loginSign_main {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.aside_registration {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.aside_registration-logoContainer {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.aside_registration-logoContainer img {
+    width: 90%;
+    height: auto;
+    max-height: 50%;
+}
+
+.aside_registration h1 {
+    font-size: 2rem;
+}
+
+.form_container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 20px; 
+    padding: 2rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1rem;
+    width: 90%;
+    height: 100%;
+}
+
+hr {
+    height: 100%;
+    opacity: 40%;
+}
+
+.form-division {
+    width: 70%;
+    height: auto;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.form-row {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.form-row .form-group {
+    flex: 1 1 45%;
+    min-width: 150px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    gap: 5px;
+}
+
+.form-group input {
+    border-radius: 1.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.129);
+    padding: 0.625rem;
+    background-color: #9a9a9936;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.buttons-form {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.buttons-form button {
+    width: 6.25rem;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    border: none;
+    background-color: #198652;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.storage_menu-main{
+    display: flex;
+    flex-direction: row;
+}
+
+.storage_aside{
+    width: 20%;
+    background-color: #0a1f15;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.storage_aside-container{
+    width: 90%;
+    height: 100%;
+}
+
+.storage_aside-optionsContainer{
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.storage_aside-imageContainer{
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.storage_aside-optionsContainer button {
+    width: 80%;
+    background-color: transparent;
+    border: none;
+    color: white;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    height: 60px;
+    border-radius: 15px;
+    cursor: pointer;
+    padding: 15px;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
+}
+
+.storage_aside-optionsContainer button:hover {
+    background-color: #198652;
+    border-radius: 10px;
+}
+
+
+.storage_aside-storageView{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    color: white;
+}
+
+.storage_aside-storageView {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .storage_aside-storageHeader {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  .storage_aside-progressBar {
+    height: 10px;
+    width: 80%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .storage_aside-progressBarFill {
+    height: 100%;
+    background-color: #198652;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .storage_aside-storageInfo {
+    font-size: 12px;
+    color: #ffffff;
+    text-align: right;
+  }
+
+  .storage_menu-section{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .storage_header {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; 
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+  .storage_header-addButtons{
+    width: 30%;
+    height: 60%;
+    gap: 10px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .storage_header-buttonsContainer{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .storage_header-buttonsContainer button {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0e0e0; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease-in-out; 
+    color: white;
+}
+
+.storage_header-buttonsContainer button:hover {
+    background-color:#52a47c;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px); 
+}
+
+.storage_header-buttonsContainer button:active {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(0); 
+}
+
+.storage_header-buttonsContainer button i {
+    font-size: 1.2em;
+}
+
+
+  .storage_header-input{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 30%;
+    height: 40%;
+  }
+
+  .storage_header-input input {
+    width: 80%;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.062);
+    padding: 0.3rem;
+    background-color: #9a9a9924;
+    font-size: 0.8rem;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .storage_header-profileImg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+  }
+
+  .storage_header-imgContainer{
+    background-color: rgba(128, 128, 128, 0.227);
+    padding: 10px;
+    border-radius: 30px;
+  }
+
+  .data_container{
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 85%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .cloud_container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    height: 100%;
+    width: 80%;
+    place-items: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    overflow-y: hidden;
+}
+
+.cloud_container .card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 70%;
+    height: 80%;
+    transition: transform 0.3s ease;
+}
+
+.cloud_container .card:hover {
+    transform: scale(1.05);
+}
+
+.cloud_container .card img {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+.cloud_container .card-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.cloud_profile-aside{
+    width: 20%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cloud_profile-aside button{
+    width: 50%;
+    height: 10%;
+    border: none;
+    border-radius: 25px;
+    background-color: #15412c;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease-in-out; 
+}
+
+.cloud_profile-aside button:hover {
+    background-color: #198652;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-2px); 
+}
+
+.cloud_profile-aside button:active {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); 
+    transform: translateY(0); 
+}
+
+.cloud_profile-aside button i {
+    font-size: 1.2em;
+}
+
+.profile_main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    border: 1px solid red;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 100%;
+  }
+  
+  .profile_container {
+    width: 40%;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    align-items: start;
+    justify-content: center;
+    padding: 40px;
+    height: 100%;
+  }
+  
+  .profile_container h2 {
+    font-size: 1.5rem;
+    color: #000;
+  }
+  .profile_picture {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .picture_circle {
+    width: 80px;
+    height: 80px;
+    background-color: #154e3f;
+    border-radius: 50%;
+  }
+  
+  .picture_buttons {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .picture_buttons button {
+    background-color: #198652;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .picture_buttons button:hover {
+    background-color: #145e43;
+  }
+  
+  .profile_details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+  
+  .detail_row {
+    height: 40px;
+    background-color: #e3e3e3;
+    border-radius: 15px;
+  }
+
+  .change_password{
+    text-align: center;
+  }
+  
+  .change_password a {
+    color: black;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+  
+  .change_password a:hover {
+    color: #198652;
+  }
+  
+  .profile_actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .profile_actions button {
+    background-color: #198652;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .profile_actions button:hover {
+    background-color: #145e43;
+  }
+
+
