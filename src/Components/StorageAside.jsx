@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useUser } from "../UserContext";
 
 export const StorageAside = () => {
   const [storageUsed, setStorageUsed] = useState(0);
-  const totalStorage = 100; 
+  const totalStorage = 100;
+  const { usuario } = useUser();
+
+  useEffect(() => {
+    console.log("Datos del usuario:", usuario);
+  }, [usuario]);  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -12,6 +18,10 @@ export const StorageAside = () => {
   }, []);
 
   const storagePercentage = (storageUsed / totalStorage) * 100;
+
+  const convertirBytesAGigas = (bytes) => {
+    return (bytes / (1024 * 1024 * 1024)).toFixed(2);
+  };
 
   return (
     <aside className="storage_aside">
@@ -67,7 +77,7 @@ export const StorageAside = () => {
             ></div>
           </div>
           <div className="storage_aside-storageInfo">
-            {storageUsed}GB / {totalStorage}GB
+            {usuario.espacioUsado}GB / {convertirBytesAGigas(usuario.cuenta.limite_espacio)}GB
           </div>
         </div>
       </div>
