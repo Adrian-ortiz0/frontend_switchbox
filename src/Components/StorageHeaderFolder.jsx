@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { CarpetaForm } from "./CarpetaForm";
-import axiosInstance from "../AxiosConfiguration";
 import { useUser } from "../UserContext";
+import axiosInstance from "../AxiosConfiguration";
+import { CarpetaForm } from "./CarpetaForm";
 
-export const StorageHeader = () => {
+export const StorageHeaderFolder = ({ carpetaId }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [showCarpetaForm, setShowCarpetaForm] = useState(false);
   const { usuario, actualizarUsuario } = useUser();
@@ -11,6 +11,7 @@ export const StorageHeader = () => {
   const handleFileUploadClick = () => {
     document.getElementById("fileInput").click();
   };
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -22,8 +23,12 @@ export const StorageHeader = () => {
       formData.append("file", file);
       formData.append("usuarioId", usuario.id);
 
+      if (carpetaId) {
+        formData.append("carpetaId", carpetaId);
+      }
+
       axiosInstance
-        .post(`/archivos/upload`, formData, {
+        .post("/archivos/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -33,9 +38,9 @@ export const StorageHeader = () => {
 
           const newStorageUsed = usuario.espacioUsado + file.size;
 
-          axiosInstance.put(`/usuarios/archivos/${usuario.id}`, JSON.stringify(newStorageUsed ), {
+          axiosInstance.put(`/usuarios/archivos/${usuario.id}`, JSON.stringify(newStorageUsed), {
             headers: {
-              "Content-Type": "application/json", 
+              "Content-Type": "application/json",
             }
           })
             .then(() => {
@@ -78,7 +83,7 @@ export const StorageHeader = () => {
             id="fileInput"
             type="file"
             style={{ display: "none" }}
-            onChange={handleFileChange} 
+            onChange={handleFileChange}
           />
         </div>
 
@@ -99,7 +104,8 @@ export const StorageHeader = () => {
         </div>
       </div>
 
-      {showCarpetaForm && <CarpetaForm onClose={handleCloseForm} />}
+      {showCarpetaForm && <CarpetaForm carpetaPadreId={carpetaId} onClose={handleCloseForm} />}
+      
     </header>
   );
 };

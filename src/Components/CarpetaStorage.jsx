@@ -1,18 +1,18 @@
 import React from "react";
 import { StorageAside } from "./StorageAside";
-import { StorageHeader } from "./StorageHeader";
-import { CloudContainer } from "./CloudContainer";
 import { CloudProfile } from "./CloudProfile";
 import { CarpetaContainer } from "./CarpetaContainer";
 import { useParams } from "react-router";
+import { StorageHeaderFolder } from "./StorageHeaderFolder";
 
 export const CarpetaStorage = () => {
   const {id} = useParams();
+  console.log(id)
   return (
     <main className="storage_menu-main">
       <StorageAside />
       <section className="storage_menu-section">
-        <StorageHeader />
+        <StorageHeaderFolder carpetaId={id} />
         <div className="data_container">
           <CarpetaContainer carpetaId={id} />
           <CloudProfile />

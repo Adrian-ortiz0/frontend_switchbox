@@ -113,6 +113,17 @@ hr {
   width: 100%;
 }
 
+.selectFolders{
+  border-radius: 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.129);
+  padding: 0.225rem;
+  background-color: #9a9a9936;
+  font-size: 0.8rem;
+  outline: none;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
 .buttons-form {
   width: 50%;
   display: flex;
