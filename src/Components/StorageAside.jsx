@@ -46,7 +46,7 @@ export const StorageAside = () => {
             <img src="/public/cloud_logo.png" alt="" width={20} height={20} />
             My Cloud
           </button>
-          <button>
+          <button onClick={() => navigate(`../shared-with-me`)}>
             <img src="/public/share_logo.png" alt="" width={20} height={20} />
             Shared with me
           </button>

@@ -6,6 +6,7 @@ import { Menu, MenuItem, IconButton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CarpetaEditing } from "./CarpetaEditing";
 import { ArchivoEditing } from "./ArchivoEditing";
+import { ArchivoSharing } from "./ArchivoSharing";
 import { useNavigate } from "react-router";
 import {
   DndContext,
@@ -24,6 +25,7 @@ export const CloudContainer = () => {
   const [draggingArchivo, setDraggingArchivo] = useState(null);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const [isEditArchivoFormOpen, setIsEditArchivoFormOpen] = useState(false);
+  const [isShareArchivoFormOpen, setIsShareArchivoFormOpen] = useState(false);
   const [menuType, setMenuType] = useState(null);
 
   const navigate = useNavigate();
@@ -69,6 +71,11 @@ export const CloudContainer = () => {
 
   const handleEditArchivoFormClose = () => {
     setIsEditArchivoFormOpen(false);
+    fetchArchivosRaiz();
+  };
+
+  const handleShareArchivoFormClose = () => {
+    setIsShareArchivoFormOpen(false);
     fetchArchivosRaiz();
   };
 
@@ -138,13 +145,13 @@ export const CloudContainer = () => {
     handleClose();
   };
 
-  const handleDownload = () => {
-    console.log("Descargando archivo:", currentArchivo);
+  const handleShare = () => {
+    setIsShareArchivoFormOpen(true);
     handleClose();
   };
 
-  const handleShare = () => {
-    console.log("Compartiendo:", currentArchivo);
+  const handleDownload = () => {
+    console.log("Descargando archivo:", currentArchivo);
     handleClose();
   };
 
@@ -204,6 +211,16 @@ export const CloudContainer = () => {
             }}
           />
         )}
+        {isShareArchivoFormOpen && currentArchivo && (
+          <ArchivoSharing
+            archivo={currentArchivo}
+            usuarioOrigenId = {usuario.id}
+            onClose={handleShareArchivoFormClose}
+            onUpdate={() => {
+              fetchArchivosRaiz();
+            }}
+          />
+        )}
         <div className="cloud_container-folders">
           {carpetas.map((carpeta) => (
             <DroppableFolder
@@ -223,6 +240,7 @@ export const CloudContainer = () => {
               handleClick={handleClick}
             />
           ))}
+          
           <Menu
             id="file-menu"
             anchorEl={anchorEl}
@@ -230,7 +248,6 @@ export const CloudContainer = () => {
             open={Boolean(anchorEl) && menuType === "file"}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleDownload}>Descargar</MenuItem>
             <MenuItem onClick={handleShare}>Compartir</MenuItem>
             <MenuItem onClick={handleEdit}>Editar</MenuItem>
             <MenuItem onClick={handleDelete}>Eliminar</MenuItem>
@@ -334,9 +351,9 @@ const DraggableArchivo = ({ archivo, handleClick }) => {
         <IconButton
           aria-controls="file-menu"
           aria-haspopup="true"
-          onMouseDown={disableDragging}  
-          onClick={handleIconClick}      
-          onMouseUp={enableDragging}    
+          onMouseDown={disableDragging}
+          onClick={handleIconClick}
+          onMouseUp={enableDragging}
         >
           <MoreVertIcon />
         </IconButton>

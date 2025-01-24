@@ -6,6 +6,7 @@ import { StorageMenu } from "./Components/StorageMenu.jsx";
 import { Profile } from "./Components/Profile.jsx";
 import { UserProvider } from "./UserContext.jsx";
 import { CarpetaStorage } from "./Components/CarpetaStorage.jsx";
+import { SharedStorage } from "./Components/SharedStorage.jsx";
 
 export const SwitchBox = () => {
   return (
@@ -18,6 +19,7 @@ export const SwitchBox = () => {
           <Route path="/storage-menu/:id" element={<StorageMenu />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/carpeta/:id" element={<CarpetaStorage />} />
+          <Route path="/shared-with-me" element={<SharedStorage />} />
         </Routes>
       </Router>
     </UserProvider>
