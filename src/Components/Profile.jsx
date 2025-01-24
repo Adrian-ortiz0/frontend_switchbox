@@ -1,51 +1,114 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import axiosInstance from "../AxiosConfiguration";
+import { useUser } from "../UserContext";
 
 export const Profile = () => {
+  const { usuario } = useUser();
+  const [formData, setFormData] = useState({
+    nombre: "",
+    apellido: "",
+    email: "",
+    password: ""
+  });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUsuario = async () => {
+      try {
+        const response = await axiosInstance.get(`/usuarios/${usuario.id}`);
+        const { nombre, apellido, email, password } = response.data;
+        setFormData({ nombre, apellido, email, password });
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchUsuario();
+  }, [usuario]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log("Datos a enviar:", formData);
+      await axiosInstance.put(`/usuarios/${usuario.id}`, formData);
+      alert("Perfil actualizado con éxito");
+    } catch (error) {
+      console.error("Error al actualizar el perfil:", error.response ? error.response.data : error.message);
+      alert("Fallo al actualizar el perfil");
     }
-    const navigate = useNavigate();
+  };
 
   return (
     <main className="profile_main">
       <div className="profile">
         <main className="profile_container">
-          <h2>My profile</h2>
+          <h2>Mi Perfil</h2>
           <div className="profile_picture">
             <div className="picture_circle"></div>
             <div className="picture_buttons">
-              <button>Change picture</button>
-              <button>Delete picture</button>
+              <button>Cambiar imagen</button>
+              <button>Eliminar imagen</button>
             </div>
           </div>
 
           <form className="profile_details" onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">
-                <label htmlFor="nombre">Name:</label>
-                <input type="text" />
+                <label htmlFor="nombre">Nombre:</label>
+                <input
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  value={formData.nombre}
+                  onChange={handleInputChange}
+                />
               </div>
 
               <div className="form-group">
-                <label htmlFor="apellido">Last name:</label>
-                <input type="text" />
+                <label htmlFor="apellido">Apellido:</label>
+                <input
+                  type="text"
+                  id="apellido"
+                  name="apellido"
+                  value={formData.apellido}
+                  onChange={handleInputChange}
+                />
               </div>
             </div>
 
             <div className="form-group">
-              <label htmlFor="email">Email:</label>
-              <input type="email" />
+              <label htmlFor="email">Correo electrónico:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+              />
             </div>
 
-            <div className="change_password">
-              <a href="#">Change password</a>
+            <div className="form-group">
+              <label htmlFor="password">Contraseña:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+              />
             </div>
 
             <div className="profile_actions">
-              <button onClick={() => navigate("/storage-menu")}>Exit</button>
-              <button>Save</button>
+              <button type="button" onClick={() => navigate(`/storage-menu/${usuario.id}`)}>
+                Salir
+              </button>
+              <button type="submit">Guardar</button>
             </div>
           </form>
         </main>

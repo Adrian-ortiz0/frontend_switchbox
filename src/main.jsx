@@ -5,6 +5,8 @@ import { UserProvider } from "./UserContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <UserProvider>
       <SwitchBox />
+    </UserProvider>
   </StrictMode>
 );
