@@ -11,7 +11,6 @@ export const Profile = () => {
     email: "",
     password: ""
   });
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,11 +34,11 @@ export const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Datos a enviar:", formData);
-      await axiosInstance.put(`/usuarios/${usuario.id}`, formData);
+      const updatedData = { ...formData };
+      await axiosInstance.put(`/usuarios/${usuario.id}`, updatedData);
       alert("Perfil actualizado con éxito");
     } catch (error) {
-      console.error("Error al actualizar el perfil:", error.response ? error.response.data : error.message);
+      console.error("Error al actualizar el perfil:", error);
       alert("Fallo al actualizar el perfil");
     }
   };
@@ -49,14 +48,6 @@ export const Profile = () => {
       <div className="profile">
         <main className="profile_container">
           <h2>Mi Perfil</h2>
-          <div className="profile_picture">
-            <div className="picture_circle"></div>
-            <div className="picture_buttons">
-              <button>Cambiar imagen</button>
-              <button>Eliminar imagen</button>
-            </div>
-          </div>
-
           <form className="profile_details" onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">

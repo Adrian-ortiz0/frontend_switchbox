@@ -15,7 +15,7 @@ import {
   DragOverlay,
 } from "@dnd-kit/core";
 
-export const CloudContainer = ({ archivos, onDelete}) => {
+export const CloudContainer = ({ archivos, onDelete, onFavorite}) => {
   const { usuario, actualizarUsuario } = useUser();
   const [carpetas, setCarpetas] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -88,6 +88,7 @@ export const CloudContainer = ({ archivos, onDelete}) => {
   const handleClose = () => {
     setAnchorEl(null);
     setMenuType(null);
+    
   };
 
   const handleDelete = () => {
@@ -246,6 +247,7 @@ export const CloudContainer = ({ archivos, onDelete}) => {
             <MenuItem onClick={handleShare}>Compartir</MenuItem>
             <MenuItem onClick={handleEdit}>Editar</MenuItem>
             <MenuItem onClick={() => (onDelete(currentArchivo, handleClose))}>Eliminar</MenuItem>
+            <MenuItem onClick={() => (onFavorite(currentArchivo, handleClose))}>Favoritos</MenuItem>
           </Menu>
           <Menu
             id="folder-menu"

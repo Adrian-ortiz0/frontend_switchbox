@@ -36,6 +36,17 @@ export const StorageMenu = () => {
       });
   };
 
+  const handleFavorite = (currentArchivo, handleClose) => {
+    if(currentArchivo){
+      axiosInstance.put(`/archivos/favorito/${currentArchivo.id}`).then((response) => {
+          alert("El archivo se movio a favoritos")
+          handleClose()
+      }).catch((error) => {
+        console.error("Error updating" + error)
+      })
+    }
+  }
+
   const handleDelete = (currentArchivo, handleClose) => {
     if (currentArchivo) {
       const archivoSize = currentArchivo.tamaño;
@@ -86,7 +97,7 @@ export const StorageMenu = () => {
   useEffect(() => {
     fetchCarpetasUsuario();
     fetchArchivosRaiz();
-  }, []);
+  }, [actualizarUsuario]);
 
   const filteredCarpetas = searchTerm
     ? carpetas.filter((carpeta) =>
@@ -111,7 +122,7 @@ export const StorageMenu = () => {
           setSearchTerm={setSearchTerm}
         />
         <div className="data_container">
-          <CloudContainer carpetass={filteredCarpetas} archivos={filteredArchivos} onDelete={handleDelete}/>
+          <CloudContainer carpetass={filteredCarpetas} archivos={filteredArchivos} onDelete={handleDelete} onFavorite={handleFavorite}/>
           <CloudProfile />
         </div>
       </section>

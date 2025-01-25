@@ -4,7 +4,7 @@ import axiosInstance from "../AxiosConfiguration";
 import { useUser } from "../UserContext"; 
 
 export const CarpetaForm = ({ onClose }) => {
-  const { usuario } = useUser();
+  const { usuario, actualizarUsuario } = useUser();
   const [formData, setFormData] = useState({
     nombre: "",
     carpetaPadre: null, 
@@ -18,10 +18,10 @@ export const CarpetaForm = ({ onClose }) => {
       .then((response) => setCarpetas(response.data))
       .catch((error) => console.error("Error al obtener las carpetas:", error));
   }
-
   const fetchAllCarpetas = () => {
     axiosInstance.get(`/carpetas/usuario/all-folders/${usuario.id}`).then((response) => {
         setAllCarpetas(response.data)
+        
     }).catch((error) => {
       console.error("error" + error)
     })
@@ -30,7 +30,7 @@ export const CarpetaForm = ({ onClose }) => {
   useEffect(() => {
     fetchCarpetas();
     fetchAllCarpetas();
-  }, [usuario.id]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

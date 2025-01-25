@@ -3,7 +3,6 @@ import { StorageAside } from "./StorageAside";
 import { CloudProfile } from "./CloudProfile";
 import { CarpetaContainer } from "./CarpetaContainer";
 import { useParams } from "react-router";
-import { StorageHeaderFolder } from "./StorageHeaderFolder";
 import { StorageHeaderCarpeta } from "./StorageHeaderCarpeta";
 
 export const CarpetaStorage = () => {
@@ -12,7 +11,7 @@ export const CarpetaStorage = () => {
     <main className="storage_menu-main">
       <StorageAside />
       <section className="storage_menu-section">
-        <StorageHeaderFolder carpetaId={id} />
+        <StorageHeaderCarpeta carpetaId={id} />
         <div className="data_container">
           <CarpetaContainer carpetaId={id} />
           <CloudProfile />

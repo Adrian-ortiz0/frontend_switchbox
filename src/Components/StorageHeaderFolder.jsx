@@ -18,12 +18,8 @@ export const StorageHeaderFolder = ({ carpetaId, searchTerm, setSearchTerm }) =>
       formData.append("file", file);
       formData.append("usuarioId", usuario.id);
 
-      if (carpetaId) {
-        formData.append("carpetaId", carpetaId);
-      }
 
-      // Llamar al endpoint de subida de archivo
-      const response = await axiosInstance.post("/archivos/uploadToFolder", formData, {
+      const response = await axiosInstance.post("/archivos/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -31,7 +27,6 @@ export const StorageHeaderFolder = ({ carpetaId, searchTerm, setSearchTerm }) =>
 
       console.log("Archivo subido con éxito:", response.data);
 
-      // Actualizar espacio usado del usuario
       const newStorageUsed = usuario.espacioUsado + file.size;
 
       await axiosInstance.put(`/usuarios/archivos/${usuario.id}`, JSON.stringify(newStorageUsed), {
@@ -40,7 +35,6 @@ export const StorageHeaderFolder = ({ carpetaId, searchTerm, setSearchTerm }) =>
         },
       });
 
-      // Obtener usuario actualizado
       const updatedUserResponse = await axiosInstance.get(`/usuarios/${usuario.id}`);
       actualizarUsuario(updatedUserResponse.data);
       console.log("Espacio actualizado con éxito:", updatedUserResponse.data);

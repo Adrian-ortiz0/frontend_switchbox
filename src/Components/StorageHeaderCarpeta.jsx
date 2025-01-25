@@ -12,6 +12,17 @@ export const StorageHeaderCarpeta = ({ carpetaId, searchTerm, setSearchTerm }) =
     document.getElementById("fileInput").click();
   };
 
+  const [archivos, setArchivos] = useState([]);
+
+  const fetchArchivos = async () => {
+    try {
+      const response = await axiosInstance.get(`archivos/carpeta/${carpetaId}`);
+      setArchivos(response.data);
+    } catch (error) {
+      console.error("Error al obtener archivos:", error);
+    }
+  };
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
@@ -48,6 +59,7 @@ export const StorageHeaderCarpeta = ({ carpetaId, searchTerm, setSearchTerm }) =
                 .then((response) => {
                   actualizarUsuario(response.data);
                   console.log("Espacio actualizado con éxito:", response.data);
+                  fetchArchivos()
                 })
                 .catch((error) => {
                   console.error("Error al obtener usuario actualizado:", error);
