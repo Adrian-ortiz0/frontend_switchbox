@@ -15,7 +15,7 @@ import {
   DragOverlay,
 } from "@dnd-kit/core";
 
-export const CloudContainer = () => {
+export const CloudContainer = ({ archivos, onDelete}) => {
   const { usuario, actualizarUsuario } = useUser();
   const [carpetas, setCarpetas] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -57,7 +57,7 @@ export const CloudContainer = () => {
       fetchCarpetasUsuario();
       fetchArchivosRaiz();
     }
-  }, [usuario]);
+  }, [archivos]);
 
   const handleFormClose = () => {
     setIsFormOpen(false);
@@ -150,11 +150,6 @@ export const CloudContainer = () => {
     handleClose();
   };
 
-  const handleDownload = () => {
-    console.log("Descargando archivo:", currentArchivo);
-    handleClose();
-  };
-
   const handleDragEnd = (event) => {
     const { active, over } = event;
     setDraggingArchivo(null);
@@ -233,7 +228,7 @@ export const CloudContainer = () => {
         </div>
         <main className="cloud_container">
           {isFormOpen && <CarpetaForm onClose={handleFormClose} />}
-          {archivosRaiz.map((archivo) => (
+          {archivos.map((archivo) => (
             <DraggableArchivo
               key={archivo.id}
               archivo={archivo}
@@ -250,7 +245,7 @@ export const CloudContainer = () => {
           >
             <MenuItem onClick={handleShare}>Compartir</MenuItem>
             <MenuItem onClick={handleEdit}>Editar</MenuItem>
-            <MenuItem onClick={handleDelete}>Eliminar</MenuItem>
+            <MenuItem onClick={() => (onDelete(currentArchivo, handleClose))}>Eliminar</MenuItem>
           </Menu>
           <Menu
             id="folder-menu"

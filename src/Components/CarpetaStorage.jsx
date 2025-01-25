@@ -4,6 +4,7 @@ import { CloudProfile } from "./CloudProfile";
 import { CarpetaContainer } from "./CarpetaContainer";
 import { useParams } from "react-router";
 import { StorageHeaderFolder } from "./StorageHeaderFolder";
+import { StorageHeaderCarpeta } from "./StorageHeaderCarpeta";
 
 export const CarpetaStorage = () => {
   const {id} = useParams();

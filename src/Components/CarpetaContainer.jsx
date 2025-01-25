@@ -61,7 +61,7 @@ export const CarpetaContainer = ({ carpetaId }) => {
       console.log("Intentando eliminar:", currentArchivo);
       const endpoint =
         currentArchivo.type === "file"
-          ? `/archivos/${currentArchivo.archivo.id}`
+          ? `/archivos/carpeta/${carpetaId}/archivo/${currentArchivo.archivo.id}`
           : `/carpetas/usuario/${usuario.id}/${currentArchivo.id}`;
 
       console.log("Endpoint:", endpoint);

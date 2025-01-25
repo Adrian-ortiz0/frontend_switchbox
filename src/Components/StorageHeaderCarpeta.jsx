@@ -3,7 +3,7 @@ import { useUser } from "../UserContext";
 import axiosInstance from "../AxiosConfiguration";
 import { CarpetaForm } from "./CarpetaForm";
 
-export const StorageHeaderFolder = ({ carpetaId, searchTerm, setSearchTerm }) => {
+export const StorageHeaderCarpeta = ({ carpetaId, searchTerm, setSearchTerm }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [showCarpetaForm, setShowCarpetaForm] = useState(false);
   const { usuario, actualizarUsuario } = useUser();
@@ -12,50 +12,54 @@ export const StorageHeaderFolder = ({ carpetaId, searchTerm, setSearchTerm }) =>
     document.getElementById("fileInput").click();
   };
 
-  const uploadFile = async (file, carpetaId) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("usuarioId", usuario.id);
-
-      if (carpetaId) {
-        formData.append("carpetaId", carpetaId);
-      }
-
-      // Llamar al endpoint de subida de archivo
-      const response = await axiosInstance.post("/archivos/uploadToFolder", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      console.log("Archivo subido con éxito:", response.data);
-
-      // Actualizar espacio usado del usuario
-      const newStorageUsed = usuario.espacioUsado + file.size;
-
-      await axiosInstance.put(`/usuarios/archivos/${usuario.id}`, JSON.stringify(newStorageUsed), {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      // Obtener usuario actualizado
-      const updatedUserResponse = await axiosInstance.get(`/usuarios/${usuario.id}`);
-      actualizarUsuario(updatedUserResponse.data);
-      console.log("Espacio actualizado con éxito:", updatedUserResponse.data);
-    } catch (error) {
-      console.error("Error durante la subida del archivo:", error);
-    }
-  };
-
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
 
     if (file) {
       console.log("Archivo seleccionado:", file.name);
-      uploadFile(file, carpetaId);
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("usuarioId", usuario.id);
+      if (carpetaId) {
+        formData.append("carpetaId", carpetaId);
+      }
+
+      axiosInstance
+        .post("/archivos/uploadToFolder", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log("Archivo subido con éxito:", response.data);
+
+          const newStorageUsed = usuario.espacioUsado + file.size;
+          axiosInstance
+            .put(`/usuarios/archivos/${usuario.id}`, JSON.stringify(newStorageUsed), {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+            .then(() => {
+              axiosInstance
+                .get(`/usuarios/${usuario.id}`)
+                .then((response) => {
+                  actualizarUsuario(response.data);
+                  console.log("Espacio actualizado con éxito:", response.data);
+                })
+                .catch((error) => {
+                  console.error("Error al obtener usuario actualizado:", error);
+                });
+            })
+            .catch((error) => {
+              console.error("Error al actualizar espacio:", error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error al subir archivo:", error);
+        });
     }
   };
 

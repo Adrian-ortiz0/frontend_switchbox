@@ -56,7 +56,7 @@ export const StorageAside = () => {
             />
             Favorites
           </button>
-          <button>
+          {/* <button>
             <img
               src="/public/delete_logo.png"
               alt=""
@@ -64,7 +64,7 @@ export const StorageAside = () => {
               height={20}
             />
             Deleted Files
-          </button>
+          </button> */}
         </div>
 
         <div className="storage_aside-storageView">
