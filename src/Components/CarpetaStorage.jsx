@@ -7,7 +7,6 @@ import { StorageHeaderFolder } from "./StorageHeaderFolder";
 
 export const CarpetaStorage = () => {
   const {id} = useParams();
-  console.log(id)
   return (
     <main className="storage_menu-main">
       <StorageAside />

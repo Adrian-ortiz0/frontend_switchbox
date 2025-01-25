@@ -10,9 +10,6 @@ export const StorageAside = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("Datos del usuario:", usuario);
-  }, [usuario]);  
 
   useEffect(() => {
     const interval = setInterval(() => {

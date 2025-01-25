@@ -7,6 +7,7 @@ export const StorageHeaderFolder = ({ carpetaId }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [showCarpetaForm, setShowCarpetaForm] = useState(false);
   const { usuario, actualizarUsuario } = useUser();
+  
 
   const handleFileUploadClick = () => {
     document.getElementById("fileInput").click();

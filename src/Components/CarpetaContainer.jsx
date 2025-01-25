@@ -16,7 +16,7 @@ export const CarpetaContainer = ({ carpetaId }) => {
 
   const navigate = useNavigate();
 
-  const {usuario} = useUser();
+  const { usuario } = useUser();
 
   const fetchCarpetasInternas = () => {
     axiosInstance
@@ -28,7 +28,6 @@ export const CarpetaContainer = ({ carpetaId }) => {
         console.error("Error fetching folders", error);
       });
   };
-  
 
   const fetchArchivosCarpeta = () => {
     axiosInstance
@@ -59,24 +58,30 @@ export const CarpetaContainer = ({ carpetaId }) => {
 
   const handleDelete = () => {
     if (currentArchivo) {
-      const endpoint = currentArchivo.type === "file"
-        ? `/archivos/${currentArchivo.id}`
-        : `/carpetas/usuario/${usuario.id}/${currentArchivo.id}`;
-        
-        axiosInstance
+      console.log("Intentando eliminar:", currentArchivo);
+      const endpoint =
+        currentArchivo.type === "file"
+          ? `/archivos/${currentArchivo.archivo.id}`
+          : `/carpetas/usuario/${usuario.id}/${currentArchivo.id}`;
+
+      console.log("Endpoint:", endpoint);
+
+      axiosInstance
         .delete(endpoint)
         .then(() => {
+          console.log("Elemento eliminado exitosamente.");
           fetchArchivosCarpeta();
           fetchCarpetasInternas();
           handleClose();
         })
         .catch((error) => {
-          console.error("Error eliminando elemento:", error.response || error.message);
+          console.error(
+            "Error eliminando elemento:",
+            error.response || error.message
+          );
         });
-      
     }
   };
-
 
   const handleEdit = () => {
     setIsEditFormOpen(true);
@@ -96,10 +101,11 @@ export const CarpetaContainer = ({ carpetaId }) => {
 
   return (
     <div className="cloud-container-wrapper">
-      {isEditFormOpen && currentArchivo && (
-        currentArchivo.type === "file" ? (
+      {isEditFormOpen &&
+        currentArchivo &&
+        (currentArchivo.type === "file" ? (
           <ArchivoEditing
-            archivo={currentArchivo}
+            archivo={currentArchivo.archivo}
             onClose={handleEditFormClose}
             onUpdate={() => {
               fetchArchivosCarpeta();
@@ -115,8 +121,8 @@ export const CarpetaContainer = ({ carpetaId }) => {
               fetchArchivosCarpeta();
             }}
           />
-        )
-      )}
+        ))}
+        
       <div className="cloud_container-folders">
         {carpetas.map((carpeta) => (
           <DroppableFolder
@@ -166,9 +172,17 @@ export const CarpetaContainer = ({ carpetaId }) => {
 
 const DroppableFolder = ({ carpeta, onClick, handleClick }) => {
   return (
-    <div key={carpeta.id} className="card folder-card" onDoubleClick={() => onClick()}>
+    <div
+      key={carpeta.id}
+      className="card folder-card"
+      onDoubleClick={() => onClick()}
+    >
       <div className="cloud_folder-icons">
-        <img src="/public/carpeta_icon.png" alt="Carpeta" className="folder-icon" />
+        <img
+          src="/public/carpeta_icon.png"
+          alt="Carpeta"
+          className="folder-icon"
+        />
         <div>{carpeta.nombre}</div>
         <IconButton
           aria-controls="folder-menu"
@@ -186,7 +200,11 @@ const DraggableArchivo = ({ archivo, handleClick }) => {
   return (
     <div key={archivo.id} className="card">
       <div className="cloud_folder-icons">
-        <img src="/public/files_icon.png" alt="archivo" className="folder-icon" />
+        <img
+          src="/public/files_icon.png"
+          alt="archivo"
+          className="folder-icon"
+        />
         <IconButton
           aria-controls="file-menu"
           aria-haspopup="true"
