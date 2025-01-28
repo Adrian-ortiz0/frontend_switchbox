@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useUser } from "../UserContext";
-import axiosInstance from "../AxiosConfiguration";
+import { axiosInstance } from "../AxiosConfiguration";
 import { CarpetaForm } from "./CarpetaForm";
 
 export const StorageHeaderFolder = ({ carpetaId, searchTerm, setSearchTerm }) => {

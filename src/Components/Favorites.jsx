@@ -3,7 +3,7 @@ import { StorageAside } from "./StorageAside";
 import { StorageHeaderFolder } from "./StorageHeaderFolder";
 import { CloudProfile } from "./CloudProfile";
 import { useUser } from "../UserContext";
-import axiosInstance from "../AxiosConfiguration";
+import { axiosInstance } from "../AxiosConfiguration";
 import { FavoritesContainer } from "./FavoritesContainer";
 
 export const Favorites = () => {

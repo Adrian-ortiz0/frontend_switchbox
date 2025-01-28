@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axiosInstance from "../AxiosConfiguration";
+import { axiosInstance } from "../AxiosConfiguration";
 import { useUser } from "../UserContext";
 
 export const SharedContainer = () => {

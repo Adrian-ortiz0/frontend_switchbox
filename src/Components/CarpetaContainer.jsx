@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axiosInstance from "../AxiosConfiguration";
+import { axiosInstance } from "../AxiosConfiguration";
 import { Menu, MenuItem, IconButton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CarpetaEditing } from "./CarpetaEditing";

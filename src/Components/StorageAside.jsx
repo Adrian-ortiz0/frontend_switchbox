@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useUser } from "../UserContext";
 import { useNavigate } from "react-router";
-import axiosInstance from "../AxiosConfiguration";
+import { axiosInstance } from "../AxiosConfiguration";
 
 export const StorageAside = () => {
   const [storageUsed, setStorageUsed] = useState(0);

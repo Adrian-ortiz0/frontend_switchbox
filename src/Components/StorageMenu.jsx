@@ -4,7 +4,7 @@ import { CloudContainer } from "./CloudContainer";
 import { CloudProfile } from "./CloudProfile";
 import { StorageHeaderFolder } from "./StorageHeaderFolder";
 import { useParams } from "react-router";
-import axiosInstance from "../AxiosConfiguration";
+import { axiosInstance } from "../AxiosConfiguration";
 import { useUser } from "../UserContext";
 
 export const StorageMenu = () => {

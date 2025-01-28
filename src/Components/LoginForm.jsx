@@ -1,55 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import axiosInstance from "../AxiosConfiguration";
+import { axiosInstanceLogin } from "../AxiosConfiguration";
 import { useUser } from "../UserContext"; 
 
 export const LoginForm = () => {
-  const [usuarios, setUsuarios] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { actualizarUsuario } = useUser(); 
-
-  const fetchUsuarios = () => {
-    axiosInstance
-      .get("/usuarios")
-      .then((response) => {
-        setUsuarios(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching usuarios: " + error);
-      });
-  };
-
-  useEffect(() => {
-    fetchUsuarios();
-  }, []);
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const usuarioEncontrado = usuarios.find(
-      (usuario) =>
-        usuario.email.toLowerCase() === email.toLowerCase() &&
-        usuario.password === password
-    );
+    axiosInstanceLogin
+      .post("login", new URLSearchParams({ email, password })) 
+      .then((response) => {
+        const { token, user } = response.data;
 
-    if (usuarioEncontrado) {
-      alert(
-        "Bienvenido/a: " +
-          usuarioEncontrado.nombre +
-          " " +
-          usuarioEncontrado.apellido
-      );
-      actualizarUsuario(usuarioEncontrado);
+        console.log(response.data);
+        
+        localStorage.setItem("authToken", token);
+        actualizarUsuario(user);  // Actualiza el contexto del usuario con los detalles recibidos
 
-      navigate(`/storage-menu/${usuarioEncontrado.id}`); 
-    } else if (email === "" || password === "") {
-      alert("Todos los campos deben estar llenos!");
-    } else if (!usuarioEncontrado) {
-      alert("Usuario no registrado!");
-    }
+        alert("Bienvenido/a!"); 
+
+        navigate(`/storage-menu/${user.id}`);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          alert("Error: Usuario o contraseña incorrectos.");
+        } else {
+          console.error("Error de conexión:", error);
+          alert("Hubo un problema al intentar conectarse con el servidor.");
+        }
+      });
   };
 
   const handleChange = (e) => {

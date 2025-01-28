@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles.css";
 import { useUser } from "../UserContext";
-import axiosInstance from "../AxiosConfiguration";
+import { axiosInstance } from "../AxiosConfiguration";
 
 export const CarpetaEditing = ({ carpeta, onClose, onUpdated }) => {
   const [nombre, setNombre] = useState("");

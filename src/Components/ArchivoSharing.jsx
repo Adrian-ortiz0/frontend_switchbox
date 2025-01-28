@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axiosInstance from '../AxiosConfiguration';
+import { axiosInstance } from "../AxiosConfiguration";
 
 export const ArchivoSharing = ({ archivo, usuarioOrigenId, onClose, onUpdate }) => {
   const [email, setEmail] = useState('');

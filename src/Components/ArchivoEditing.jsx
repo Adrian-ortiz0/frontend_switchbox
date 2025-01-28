@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from '../AxiosConfiguration';
+import { axiosInstance } from "../AxiosConfiguration";
 
 export const ArchivoEditing = ({ archivo, onClose, onUpdate }) => {
   const [nombre, setNombre] = useState('');

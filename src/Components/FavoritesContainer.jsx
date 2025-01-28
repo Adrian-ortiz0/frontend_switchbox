@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Menu, MenuItem, IconButton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import axiosInstance from "../AxiosConfiguration";
+import { axiosInstance } from "../AxiosConfiguration";
 import { ArchivoSharing } from "./ArchivoSharing";
 import { ArchivoEditing } from "./ArchivoEditing";
 import { useUser } from "../UserContext";
