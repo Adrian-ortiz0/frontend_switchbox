@@ -21,7 +21,7 @@ export const LoginForm = () => {
         console.log(response.data);
         
         localStorage.setItem("authToken", token);
-        actualizarUsuario(user);  // Actualiza el contexto del usuario con los detalles recibidos
+        actualizarUsuario(user); 
 
         alert("Bienvenido/a!"); 
 

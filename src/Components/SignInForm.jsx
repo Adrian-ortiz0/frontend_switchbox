@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { axiosInstance } from "../AxiosConfiguration";
+import { axiosInstance, axiosInstanceLogin } from "../AxiosConfiguration";
 import { useNavigate } from "react-router";
 
 export const SignInForm = () => {
@@ -30,7 +30,6 @@ export const SignInForm = () => {
         console.error("Error fetching cuentas", error);
       });
   };
-  
 
   useEffect(() => {
     fetchCuentas();
@@ -51,51 +50,47 @@ export const SignInForm = () => {
       });
     }
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    console.log("formData:", formData); 
-  
+
     if (formData.password !== formData.repeatPassword) {
       console.log("Las contraseñas no coinciden.");
       return;
     }
-  
+
     if (!formData.nombre || !formData.apellido || !formData.email || !formData.password || !formData.cuenta.id) {
-      alert("Por favor llene todos los campos")
+      alert("Por favor llene todos los campos");
       return;
     }
-  
+
     const cuentaSeleccionada = cuentas.find(cuenta => cuenta.id === parseInt(formData.cuenta.id));
-  
+
     if (!cuentaSeleccionada) {
       console.log("Cuenta seleccionada no válida.");
       return;
     }
-  
-    const { repeatPassword, ...dataToSend } = formData;
-    
+
+    const { repeatPassword, archivos, cuenta, ...dataToSend } = formData;
+
     const usuario = {
       ...dataToSend,
-      cuenta: cuentaSeleccionada,
-      archivos: [],
+      cuentaId: cuentaSeleccionada.id, 
+      espacioUsado: 0, 
     };
-  
-    axiosInstance
-      .post("/usuarios", usuario)
+
+    axiosInstanceLogin
+      .post("/register", usuario)
       .then((response) => {
         console.log("Usuario creado:", response.data);
-        alert("Usuario creado con exito!")
-        navigate("/login")
+        alert("Usuario creado con éxito!");
+        navigate("/login");
       })
       .catch((error) => {
-        console.error("Error al registrar usuario:", error);
-        console.log("Error al registrar usuario. Inténtalo nuevamente.");
+        console.error("Error al registrar usuario:", error.response?.data || error.message);
+        alert("Error al registrar usuario. Inténtalo nuevamente.");
       });
   };
-  
 
   const convertirBytesAGigas = (bytes) => {
     return (bytes / (1024 * 1024 * 1024)).toFixed(2);
@@ -149,9 +144,7 @@ export const SignInForm = () => {
         </div>
 
         <div className="buttons-form">
-          <form>
-            <button onClick={() => navigate("/login")}>Log In</button>
-          </form>
+          <button type="button" onClick={() => navigate("/login")}>Log In</button>
           <button type="submit">Register</button>
         </div>
       </form>
